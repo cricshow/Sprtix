@@ -1,0 +1,423 @@
+
+{
+  "app": {
+    "name": "SPRtix",
+    "tagline": "LIVE TV • ENTERTAINMENT",
+    "version": "1.0.0",
+    "language": "en",
+    "direction": "ltr",
+    "defaultPage": "home",
+    "showSplashScreen": true,
+    "splashDuration": 1800
+  },
+  "branding": {
+    "logoUrl": "",
+    "logoText": "▶",
+    "logoPosition": "left",
+    "showAppName": true,
+    "showTagline": true,
+    "faviconUrl": ""
+  },
+  "theme": {
+    "mode": "dark",
+    "background": "#050916",
+    "surface": "#0B1427",
+    "cardBackground": "#0D1930",
+    "primary": "#00EAFF",
+    "secondary": "#8C5CFF",
+    "accent": "#FF278B",
+    "text": "#F5F8FF",
+    "mutedText": "#91A5C5",
+    "border": "rgba(125,190,255,0.15)",
+    "success": "#39E7A5",
+    "error": "#FF4567",
+    "warning": "#FFCF43",
+    "gradient": [
+      "#00EAFF",
+      "#306CFF",
+      "#8C5CFF",
+      "#FF278B"
+    ],
+    "backgroundGradient": true,
+    "glassmorphism": true,
+    "neonGlow": true,
+    "roundedCorners": 18,
+    "cardRadius": 18,
+    "buttonRadius": 50,
+    "fontFamily": "Arial, Helvetica, sans-serif",
+    "baseFontSize": 14
+  },
+  "layout": {
+    "maxWidth": 1100,
+    "pagePadding": 16,
+    "sectionSpacing": 27,
+    "headerSticky": true,
+    "horizontalScrolling": true,
+    "showScrollbars": false,
+    "safeAreaSupport": true,
+    "responsive": true,
+    "preventHorizontalOverflow": true
+  },
+  "header": {
+    "enabled": true,
+    "sticky": true,
+    "background": "rgba(5,9,22,0.88)",
+    "showLogo": true,
+    "showAppName": true,
+    "showNotifications": true,
+    "showSearch": true,
+    "showShare": true,
+    "showNotificationDot": true,
+    "notificationIcon": "bell",
+    "searchIcon": "search",
+    "shareIcon": "share-2",
+    "logoAlignment": "left",
+    "actionsAlignment": "right"
+  },
+  "hero": {
+    "enabled": true,
+    "height": 350,
+    "borderRadius": 23,
+    "autoSlide": true,
+    "slideInterval": 5000,
+    "transition": "fade",
+    "transitionDuration": 400,
+    "showArrows": true,
+    "showDots": true,
+    "swipeEnabled": true,
+    "showWatchButton": true,
+    "buttonText": "EXPLORE NOW",
+    "overlayOpacity": 0.75,
+    "slides": [
+      {
+        "id": "banner-1",
+        "title": "YOUR WORLD.",
+        "highlight": "YOUR ENTERTAINMENT.",
+        "description": "Discover live channels, sports and entertainment.",
+        "imageUrl": "",
+        "badge": "SPRTIX EXCLUSIVE",
+        "buttonText": "EXPLORE NOW",
+        "action": "explore",
+        "enabled": true
+      },
+      {
+        "id": "banner-2",
+        "title": "FEEL THE",
+        "highlight": "LIVE ACTION.",
+        "description": "Explore sports, news and your favourite channels.",
+        "imageUrl": "",
+        "badge": "LIVE EXPERIENCE",
+        "buttonText": "WATCH LIVE",
+        "action": "live",
+        "enabled": true
+      },
+      {
+        "id": "banner-3",
+        "title": "ENTERTAINMENT.",
+        "highlight": "WITHOUT LIMITS.",
+        "description": "Discover something new to watch.",
+        "imageUrl": "",
+        "badge": "DISCOVER MORE",
+        "buttonText": "EXPLORE",
+        "action": "explore",
+        "enabled": true
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "trending",
+      "title": "TRENDING",
+      "highlight": "LIVE",
+      "subtitle": "Popular channels to explore",
+      "icon": "radio",
+      "type": "channels",
+      "category": "All",
+      "filter": "live",
+      "enabled": true,
+      "showSeeAll": true,
+      "seeAllText": "SEE ALL",
+      "cardStyle": "neon",
+      "maxItems": 12
+    },
+    {
+      "id": "featured",
+      "title": "FEATURED CHANNELS",
+      "highlight": "",
+      "subtitle": "Discover your next favourite",
+      "icon": "star",
+      "type": "channels",
+      "category": "All",
+      "filter": "featured",
+      "enabled": true,
+      "showSeeAll": true,
+      "seeAllText": "SEE ALL",
+      "cardStyle": "glass",
+      "maxItems": 12
+    },
+    {
+      "id": "favourites",
+      "title": "YOUR FAVOURITES",
+      "highlight": "",
+      "subtitle": "Your saved channels",
+      "icon": "heart",
+      "type": "channels",
+      "category": "All",
+      "filter": "favourites",
+      "enabled": true,
+      "showSeeAll": true,
+      "seeAllText": "SEE ALL",
+      "cardStyle": "neon",
+      "maxItems": 12
+    },
+    {
+      "id": "sports",
+      "title": "SPORTS",
+      "highlight": "",
+      "subtitle": "Catch all the action",
+      "icon": "trophy",
+      "type": "channels",
+      "category": "Sports",
+      "filter": "category",
+      "enabled": true,
+      "showSeeAll": true,
+      "seeAllText": "SEE ALL",
+      "cardStyle": "glass",
+      "maxItems": 12
+    },
+    {
+      "id": "entertainment",
+      "title": "ENTERTAINMENT",
+      "highlight": "",
+      "subtitle": "Shows, movies and more",
+      "icon": "clapperboard",
+      "type": "channels",
+      "category": "Entertainment",
+      "filter": "category",
+      "enabled": true,
+      "showSeeAll": true,
+      "seeAllText": "SEE ALL",
+      "cardStyle": "neon",
+      "maxItems": 12
+    },
+    {
+      "id": "news",
+      "title": "NEWS & UPDATES",
+      "highlight": "",
+      "subtitle": "Stay up to date",
+      "icon": "newspaper",
+      "type": "channels",
+      "category": "News",
+      "filter": "category",
+      "enabled": true,
+      "showSeeAll": true,
+      "seeAllText": "SEE ALL",
+      "cardStyle": "glass",
+      "maxItems": 12
+    },
+    {
+      "id": "recent",
+      "title": "RECENTLY WATCHED",
+      "highlight": "",
+      "subtitle": "Continue exploring",
+      "icon": "clock",
+      "type": "channels",
+      "category": "All",
+      "filter": "recent",
+      "enabled": true,
+      "showSeeAll": true,
+      "seeAllText": "SEE ALL",
+      "cardStyle": "glass",
+      "maxItems": 12
+    }
+  ],
+  "channelCards": {
+    "enabled": true,
+    "showLogo": true,
+    "showName": true,
+    "showCategory": true,
+    "showLiveBadge": true,
+    "showFavouriteButton": true,
+    "showViewCount": false,
+    "showDescription": false,
+    "logoSize": 67,
+    "cardWidth": 133,
+    "cardPadding": 11,
+    "cardRadius": 18,
+    "imageFit": "contain",
+    "defaultLogoText": "TV",
+    "fallbackColor": "#00EAFF",
+    "tapAnimation": true,
+    "hoverAnimation": true
+  },
+  "categories": [
+    {
+      "id": "all",
+      "name": "All",
+      "enabled": true
+    },
+    {
+      "id": "news",
+      "name": "News",
+      "enabled": true
+    },
+    {
+      "id": "sports",
+      "name": "Sports",
+      "enabled": true
+    },
+    {
+      "id": "entertainment",
+      "name": "Entertainment",
+      "enabled": true
+    },
+    {
+      "id": "movies",
+      "name": "Movies",
+      "enabled": true
+    },
+    {
+      "id": "kids",
+      "name": "Kids",
+      "enabled": true
+    }
+  ],
+  "search": {
+    "enabled": true,
+    "placeholder": "Search channels...",
+    "searchByName": true,
+    "searchByCategory": true,
+    "showClearButton": true,
+    "liveResults": true,
+    "showEmptyState": true
+  },
+  "navigation": {
+    "enabled": true,
+    "position": "bottom",
+    "fixed": true,
+    "glassmorphism": true,
+    "height": 76,
+    "showLabels": true,
+    "activeColor": "#00EAFF",
+    "inactiveColor": "#91A5C5",
+    "items": [
+      {
+        "id": "home",
+        "label": "Home",
+        "icon": "house",
+        "action": "home",
+        "enabled": true
+      },
+      {
+        "id": "live",
+        "label": "Live TV",
+        "icon": "tv",
+        "action": "live",
+        "enabled": true
+      },
+      {
+        "id": "explore",
+        "label": "Explore",
+        "icon": "compass",
+        "action": "explore",
+        "enabled": true
+      },
+      {
+        "id": "saved",
+        "label": "Saved",
+        "icon": "bookmark",
+        "action": "saved",
+        "enabled": true
+      }
+    ]
+  },
+  "animations": {
+    "enabled": true,
+    "respectReducedMotion": true,
+    "fadeIn": true,
+    "slideIn": true,
+    "cardEntrance": true,
+    "neonGlow": true,
+    "buttonPress": true,
+    "shimmer": true,
+    "duration": 300,
+    "intensity": "subtle",
+    "autoPlayWhenBackgrounded": false
+  },
+  "player": {
+    "enabled": true,
+    "openMode": "existingPlayer",
+    "showControls": true,
+    "autoplay": true,
+    "showFullscreen": true,
+    "supportedFormats": [
+      "m3u8",
+      "hls",
+      "mp4"
+    ],
+    "respectExistingPlayer": true
+  },
+  "notifications": {
+    "enabled": true,
+    "provider": "OneSignal",
+    "showHeaderButton": true,
+    "showNotificationDot": true,
+    "openExistingNotificationScreen": true
+  },
+  "sharing": {
+    "enabled": true,
+    "useNativeShare": true,
+    "fallbackToClipboard": true,
+    "shareTitle": "SPRtix",
+    "shareText": "Explore SPRtix Live TV and entertainment.",
+    "shareUrl": ""
+  },
+  "ads": {
+    "enabled": true,
+    "provider": "StartApp",
+    "placements": {
+      "homeBanner": {
+        "enabled": true,
+        "position": "afterHero"
+      },
+      "channelList": {
+        "enabled": true,
+        "position": "betweenSections"
+      },
+      "player": {
+        "enabled": true,
+        "position": "existingPlayerPlacement"
+      }
+    },
+    "preserveExistingSdk": true
+  },
+  "dataSources": {
+    "channelsJsonUrl": "",
+    "cacheEnabled": true,
+    "cacheDurationSeconds": 300,
+    "refreshOnLaunch": true,
+    "showLoadingState": true,
+    "showErrorState": true,
+    "retryOnFailure": true,
+    "fallbackToCachedData": true
+  },
+  "states": {
+    "loadingText": "Loading your channels...",
+    "emptyText": "No channels found",
+    "searchEmptyText": "Try another search",
+    "networkErrorText": "Unable to load channels",
+    "retryButtonText": "TRY AGAIN",
+    "showLoadingSkeletons": true
+  },
+  "footer": {
+    "enabled": true,
+    "text": "SPRtix • Your entertainment, your way",
+    "showVersion": false
+  },
+  "performance": {
+    "lazyLoadImages": true,
+    "optimizeAnimations": true,
+    "disableHeavyEffectsOnLowEndDevices": true,
+    "maxVisibleCardsPerSection": 12
+  }
+}

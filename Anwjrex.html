@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPRtix - UID Secure Admin Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background-color: #030712;
+            color: #ffffff;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            align-items: center;
+        }
+
+        /* Login Screen */
+        .login-card {
+            width: 100%;
+            max-width: 380px;
+            background: #0f172a;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.15);
+            text-align: center;
+        }
+
+        .login-card h2 {
+            font-size: 20px;
+            color: #00f2fe;
+            margin-bottom: 6px;
+        }
+
+        .login-card p {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        /* Admin Dashboard Container */
+        .admin-container {
+            width: 100%;
+            max-width: 850px;
+            background: #0f172a;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.1);
+            display: none;
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .admin-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 20px;
+            color: #00f2fe;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .section-box {
+            background: #090d16;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ff0055;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            font-size: 10.5px;
+            color: #cbd5e1;
+            margin-bottom: 3px;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: #030712;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 7px 12px;
+            color: #fff;
+            font-size: 11.5px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #00f2fe;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 55px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #00f2fe, #7000ff);
+            color: #fff;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-edit {
+            background: #10b981;
+            padding: 3px 8px;
+            font-size: 9.5px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 4px;
+        }
+
+        .btn-danger {
+            background: #ff0055;
+            padding: 3px 8px;
+            font-size: 9.5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-logout {
+            background: #ef4444;
+            padding: 5px 12px;
+            font-size: 10px;
+        }
+
+        .item-list {
+            margin-top: 8px;
+            max-height: 130px;
+            overflow-y: auto;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0f172a;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            font-size: 10.5px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #00f2fe;
+            color: #030712;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== LOGIN SCREEN ==================== -->
+    <div id="loginScreen" class="login-card">
+        <h2><i class="fa-solid fa-lock"></i> Admin Login</h2>
+        <p>Firebase Authentication Required</p>
+        <div class="form-group">
+            <label>Admin Email:</label>
+            <input type="email" id="adminEmail" placeholder="admin@sprtix.com" value="admin@sprtix.com">
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" id="adminPassword" placeholder="••••••••" value="admin123">
+        </div>
+        <button class="btn" style="width: 100%; margin-top: 10px;" onclick="loginAdmin()">Login Securely</button>
+    </div>
+
+    <!-- ==================== ADMIN DASHBOARD ==================== -->
+    <div id="adminDashboard" class="admin-container">
+        <div class="admin-header">
+            <div>
+                <h1><i class="fa-solid fa-gauge-high"></i> SPRtix Dashboard</h1>
+                <div class="subtitle" style="margin-bottom:0;" id="userUidText">UID Verified</div>
+            </div>
+            <button class="btn btn-logout" onclick="logoutAdmin()">Logout</button>
+        </div>
+
+        <input type="hidden" id="editNode" value="">
+        <input type="hidden" id="editKey" value="">
+
+        <!-- 1. NOTIFICATIONS & SHARE MESSAGE -->
+        <div class="section-box">
+            <div class="section-title"><i class="fa-solid fa-bell"></i> Top Bar Notifications & Share Settings</div>
+            <div class="form-group">
+                <label>Notification Alert Text:</label>
+                <input type="text" id="notifText" placeholder="Enter notification message...">
+            </div>
+            <div class="form-group">
+                <label>Share Link / Message (Copied on Share icon click):</label>
+                <textarea id="shareMsg" placeholder="Download SPRtix App now: https://..."></textarea>
+            </div>
+            <button class="btn" onclick="saveSettings()">Update Notifications & Share</button>
+        </div>
+
+        <!-- 2. BANNER SLIDER MANAGEMENT -->
+        <div class="section-box">
+            <div class="section-title"><i class="fa-solid fa-images"></i> Banner Sliders Management</div>
+            <div class="form-group"><label>Badge Title:</label><input type="text" id="sliderBadge" placeholder="NEW EPISODE"></div>
+            <div class="form-group"><label>Main Title:</label><input type="text" id="sliderTitle" placeholder="Dil Ki Duniya"></div>
+            <div class="form-group"><label>Description:</label><textarea id="sliderDesc" placeholder="Description..."></textarea></div>
+            <div class="form-group"><label>Image URL:</label><input type="text" id="sliderImage" placeholder="https://..."></div>
+            <div class="form-group"><label>Watch Now Stream URL:</label><input type="text" id="sliderUrl" placeholder="https://...mp4"></div>
+            <button class="btn" onclick="saveItem('sliders', {badge: sliderBadge.value, title: sliderTitle.value, desc: sliderDesc.value, image: sliderImage.value, url: sliderUrl.value}, ['sliderBadge', 'sliderTitle', 'sliderDesc', 'sliderImage', 'sliderUrl'])">Add / Update Slider</button>
+            <div class="item-list" id="sliderList"></div>
+        </div>
+
+        <!-- 3. TRENDING LIVE CHANNELS -->
+        <div class="section-box">
+            <div class="section-title"><i class="fa-solid fa-circle-dot"></i> Trending Live Channels</div>
+            <div class="form-group"><label>Channel Name:</label><input type="text" id="liveName" placeholder="ZEEVA ENTERTAINMENT"></div>
+            <div class="form-group"><label>Category:</label><input type="text" id="liveSub" placeholder="ENTERTAINMENT"></div>
+            <div class="form-group"><label>Views:</label><input type="text" id="liveViews" placeholder="12.4K"></div>
+            <div class="form-group"><label>Stream URL:</label><input type="text" id="liveUrl" placeholder="https://...m3u8"></div>
+            <button class="btn" onclick="saveItem('liveChannels', {name: liveName.value, subtitle: liveSub.value, views: liveViews.value, url: liveUrl.value}, ['liveName', 'liveSub', 'liveViews', 'liveUrl'])">Add / Update Live Channel</button>
+            <div class="item-list" id="liveList"></div>
+        </div>
+
+        <!-- 4. LIVE TV SCREEN CHANNELS -->
+        <div class="section-box">
+            <div class="section-title"><i class="fa-solid fa-tv"></i> Live TV Screen Channels</div>
+            <div class="form-group"><label>Channel Name:</label><input type="text" id="tvName" placeholder="SPORTS TV"></div>
+            <div class="form-group"><label>Category:</label><input type="text" id="tvCat" placeholder="SPORTS"></div>
+            <div class="form-group"><label>Stream URL:</label><input type="text" id="tvUrl" placeholder="https://...m3u8"></div>
+            <button class="btn" onclick="saveItem('liveTvScreen', {name: tvName.value, category: tvCat.value, url: tvUrl.value}, ['tvName', 'tvCat', 'tvUrl'])">Add / Update Live TV</button>
+            <div class="item-list" id="tvList"></div>
+        </div>
+
+        <!-- 5. NEWS & UPDATES -->
+        <div class="section-box">
+            <div class="section-title"><i class="fa-solid fa-newspaper"></i> News & Updates Channels</div>
+            <div class="form-group"><label>News Channel Name:</label><input type="text" id="newsName" placeholder="NEXUS NEWS"></div>
+            <div class="form-group"><label>Category:</label><input type="text" id="newsCat" placeholder="NEWS"></div>
+            <div class="form-group"><label>Stream URL:</label><input type="text" id="newsUrl" placeholder="https://...m3u8"></div>
+            <button class="btn" onclick="saveItem('newsUpdates', {name: newsName.value, category: newsCat.value, url: newsUrl.value}, ['newsName', 'newsCat', 'newsUrl'])">Add / Update News</button>
+            <div class="item-list" id="newsList"></div>
+        </div>
+
+        <!-- 6. EXPLORE CATEGORIES MANAGEMENT -->
+        <div class="section-box">
+            <div class="section-title"><i class="fa-solid fa-compass"></i> Explore Categories Management</div>
+            <div class="form-group"><label>Category Name:</label><input type="text" id="expName" placeholder="SPORTS / MOVIES"></div>
+            <div class="form-group"><label>Subtitle / Description:</label><input type="text" id="expCat" placeholder="EXPLORE"></div>
+            <div class="form-group"><label>Target URL (Stream or Web Link):</label><input type="text" id="expUrl" placeholder="https://..."></div>
+            <button class="btn" onclick="saveItem('playlist', {name: expName.value, category: expCat.value, url: expUrl.value}, ['expName', 'expCat', 'expUrl'])">Add / Update Category</button>
+            <div class="item-list" id="expList"></div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Updated Successfully!</div>
+
+    <!-- Firebase SDK Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBNhvhiGQi3Zt7-FNEGl46Xi4XYrFsHgLc",
+            authDomain: "apkmalia-38ac2.firebaseapp.com",
+            databaseURL: "https://apkmalia-38ac2-default-rtdb.firebaseio.com",
+            projectId: "apkmalia-38ac2",
+            storageBucket: "apkmalia-38ac2.appspot.com",
+            messagingSenderId: "764227278305",
+            appId: "1:764227278305:web:038a8cd3f0aff2af65aea0"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const auth = firebase.auth();
+
+        const TARGET_UID = "BNlFYAgIsdOAKg7JTCCNMSSbqjt1";
+
+        // Auth State Listener
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                if (user.uid === TARGET_UID) {
+                    document.getElementById('loginScreen').style.display = 'none';
+                    document.getElementById('adminDashboard').style.display = 'block';
+                    document.getElementById('userUidText').innerText = 'Verified UID: ' + user.uid;
+                    loadAllData();
+                } else {
+                    alert('Yeh UID authorized admin nahi hai!');
+                    auth.signOut();
+                }
+            } else {
+                document.getElementById('loginScreen').style.display = 'block';
+                document.getElementById('adminDashboard').style.display = 'none';
+            }
+        });
+
+        function loginAdmin() {
+            const email = document.getElementById('adminEmail').value.trim();
+            const pass = document.getElementById('adminPassword').value.trim();
+
+            auth.signInWithEmailAndPassword(email, pass)
+                .then(() => { showToast('Login Successful!'); })
+                .catch((error) => {
+                    auth.createUserWithEmailAndPassword(email, pass)
+                        .then(() => { showToast('Account created & logged in!'); })
+                        .catch(err => alert('Login Error: ' + err.message));
+                });
+        }
+
+        function logoutAdmin() {
+            auth.signOut().then(() => { showToast('Logged out successfully!'); });
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.style.display = 'block';
+            setTimeout(() => { t.style.display = 'none'; }, 2000);
+        }
+
+        function saveSettings() {
+            const notif = document.getElementById('notifText').value;
+            const share = document.getElementById('shareMsg').value;
+            database.ref('settings').set({ notification: notif, shareMessage: share }, (error) => {
+                if(error) alert('Permission Denied: ' + error.message);
+                else showToast('Settings updated!');
+            });
+        }
+
+        function saveItem(node, data, inputIds) {
+            if(!data.name && !data.title) { alert('Please fill required fields'); return; }
+            
+            const editKey = document.getElementById('editKey').value;
+            const editNode = document.getElementById('editNode').value;
+
+            if(editKey && editNode === node) {
+                database.ref(node + '/' + editKey).set(data, (error) => {
+                    if(error) alert('Permission Denied: ' + error.message);
+                    else {
+                        showToast('Updated successfully!');
+                        resetForm(inputIds);
+                    }
+                });
+            } else {
+                database.ref(node).push(data, (error) => {
+                    if(error) alert('Permission Denied: ' + error.message);
+                    else {
+                        showToast('Added successfully!');
+                        resetForm(inputIds);
+                    }
+                });
+            }
+        }
+
+        function resetForm(inputIds) {
+            inputIds.forEach(id => document.getElementById(id).value = '');
+            document.getElementById('editKey').value = '';
+            document.getElementById('editNode').value = '';
+        }
+
+        function deleteItem(node, key) {
+            if(confirm('Are you sure you want to delete this?')) {
+                database.ref(node + '/' + key).remove((error) => {
+                    if(error) alert('Permission Denied: ' + error.message);
+                    else showToast('Deleted successfully!');
+                });
+            }
+        }
+
+        function loadAllData() {
+            database.ref('settings').on('value', snap => {
+                const s = snap.val();
+                if(s) {
+                    document.getElementById('notifText').value = s.notification || '';
+                    document.getElementById('shareMsg').value = s.shareMessage || '';
+                }
+            });
+
+            bindList('sliders', 'sliderList', 'title', ['sliderBadge', 'sliderTitle', 'sliderDesc', 'sliderImage', 'sliderUrl']);
+            bindList('liveChannels', 'liveList', 'name', ['liveName', 'liveSub', 'liveViews', 'liveUrl']);
+            bindList('liveTvScreen', 'tvList', 'name', ['tvName', 'tvCat', 'tvUrl']);
+            bindList('newsUpdates', 'newsList', 'name', ['newsName', 'newsCat', 'newsUrl']);
+            bindList('playlist', 'expList', 'name', ['expName', 'expCat', 'expUrl']);
+        }
+
+        function bindList(node, elementId, titleKey, inputIds) {
+            database.ref(node).on('value', snap => {
+                const list = document.getElementById(elementId);
+                if(!list) return;
+                list.innerHTML = '';
+                const data = snap.val();
+                if(data) {
+                    Object.keys(data).forEach(key => {
+                        const item = data[key];
+                        const titleVal = item[titleKey] || 'Item';
+                        
+                        const row = document.createElement('div');
+                        row.className = 'item-row';
+                        row.innerHTML = `<span>${titleVal}</span> <div><button class="btn-edit" onclick="prepareEdit('${node}', '${key}', ${JSON.stringify(inputIds).replace(/"/g, '&quot;')})">Edit</button> <button class="btn-danger" onclick="deleteItem('${node}', '${key}')">Delete</button></div>`;
+                        list.appendChild(row);
+                    });
+                }
+            });
+        }
+
+        function prepareEdit(node, key, inputIds) {
+            database.ref(node + '/' + key).once('value').then(snap => {
+                const val = snap.val();
+                if(val) {
+                    inputIds.forEach((id, index) => {
+                        const el = document.getElementById(id);
+                        if(el) {
+                            const propKeys = Object.keys(val);
+                            if(propKeys[index]) {
+                                el.value = val[propKeys[index]] || '';
+                            }
+                        }
+                    });
+                    document.getElementById('editKey').value = key;
+                    document.getElementById('editNode').value = node;
+                    showToast('Loaded for editing. Click Add/Update to save.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
